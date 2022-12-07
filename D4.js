@@ -127,15 +127,19 @@ for (let i = 0; i < starWarsCharacters.length; i++) {
 */
 
 console.log("3rd ex");
-femaleCharachters = [];
+let femaleCharachters = [];
 for (let i = 0; i < starWarsCharacters.length; i++) {
+    let istantarray = starWarsCharacters[i];
     if (starWarsCharacters[i].gender === "female") {
-        femaleCharachters[i] = Object.entries(starWarsCharacters[i]);
-        console.log(femaleCharachters[i]);
-    } else {
-        continue;
+        delete istantarray.height;
+        delete istantarray.mass;
+        delete istantarray.skin_color;
+        delete istantarray.birth_year;
+        delete istantarray.gender;
+        femaleCharachters.push(istantarray);
     }
 }
+console.log(femaleCharachters);
 
 /* ESERCIZIO 4
   Crea un oggetto "eyeColor" che abbia come proprietà: blue, yellow, brown, red, blue-gray.
@@ -161,51 +165,47 @@ console.log(eyeColor);
 
 console.log("5th ex");
 const eyeColorArray = Object.keys(eyeColor);
-console.log(eyeColorArray)
-for (let j = 0; j <eyeColorArray.length; j++) {
-  console.log("j = ",j);
-  for (let i = 0; i < starWarsCharacters.length; i++) {
-    console.log("i = ",i);
-    console.log(starWarsCharacters[i].eye_color)
-      switch (starWarsCharacters[i].eye_color) {
-          case "blue" :
-            eyeColor.blue = starWarsCharacters[i]
-            break;
-          case "yellow" :
-            eyeColor.yellow = starWarsCharacters[i]
-            break;
-          case "brown" :
-            eyeColor.brown = starWarsCharacters[i]
-          break;
-          case "red" :
-            eyeColor.red = starWarsCharacters[i]
-          break;
-          case "blue-grey" :
-            eyeColor.propertybugged = starWarsCharacters[i]
-          break;
-          default:
-            console.log("nessun colore adatto");
-      }
-  }
+for (let j = 0; j < eyeColorArray.length; j++) {
+    for (let i = 0; i < starWarsCharacters.length; i++) {
+        switch (starWarsCharacters[i].eye_color) {
+            case "blue":
+                eyeColor.blue = starWarsCharacters[i];
+                break;
+            case "yellow":
+                eyeColor.yellow = starWarsCharacters[i];
+                break;
+            case "brown":
+                eyeColor.brown = starWarsCharacters[i];
+                break;
+            case "red":
+                eyeColor.red = starWarsCharacters[i];
+                break;
+            case "blue-gray":
+                eyeColor["blue-gray"].push(starWarsCharacters[i]);
+                break;
+            default:
+                console.log("nessun colore adatto");
+        }
+    }
 }
-console.log(eyeColor)
+console.log(eyeColor);
 
 /* ESERCIZIO 6
   Usa un while loop per calcolare la massa totale dell'equipaggio
 */
 
-console.log("6th ex")
-let j = 0;
-let totalmass = 0;
-for (let i = 0; i < starWarsCharacters.length; i++) {
-  while (j < 1) {
-    totalmass += +starWarsCharacters[i].mass;
-    j++;
-    console.log(starWarsCharacters[i].mass);
-  }
-  j = 0
+console.log("6th ex");
+let totalMass = 0;
+let z = 0;
+starWarsCharacters[1].mass = 0;
+while (z < 10) {
+    if (typeof +starWarsCharacters[z].mass !== NaN) {
+        totalMass += +starWarsCharacters[z].mass;
+        z++;
+    }
 }
-console.log(totalmass)
+console.log(totalMass);
+
 /* ESERCIZIO 7
 
 Crea uno switch statement per rivelare la tipologia di carico, utilizzando la massa totale, di un'impotetica astronave contenente i personaggi dell'array "starWarsCharacters"
@@ -220,10 +220,42 @@ Se la massa è superiore a 1000 stampa in console: "DANGER! OVERLOAD ALERT: Jump
 Una volta fatto, modifica la massa di qualche elemento dell'equipaggio e vedi se riesci ad ottenere un messaggio diverso.
 */
 
+console.log("7th ex");
+
+switch (true) {
+    case totalMass < 500:
+        console.log("Ship is under loaded");
+        break;
+    case totalMass >= 500 && totalMass < 700:
+        console.log("Ship is half loaded");
+        break;
+    case totalMass > 700 && totalMass < 900:
+        console.log("Warning: Load is over 700");
+        break;
+    case totalMass > 900 && totalMass < 1000:
+        console.log("Critical Load: Over 900");
+        break;
+    case totalMass > 1000:
+        console.log("DANGER! OVERLOAD ALERT: Jump ship now!");
+        break;
+    default:
+        console.log("");
+}
+
 /* ESERCIZIO 8
 
 Usa un for loop per cambiare il valore della proprietà "gender" di alcuni personaggi dal valore "n/a" a "robot" (Tip: puoi creare un nuovo array, o tentare la riassegnazione del valore corrispondente)
 */
+
+console.log("8th ex");
+let robotCharachters = [];
+for (let i = 0; i < starWarsCharacters.length; i++) {
+    robotCharachters = starWarsCharacters[1];
+    if (starWarsCharacters[i].gender === "n/a") {
+        robotCharachters.gender = "robot";
+        console.log(robotCharachters);
+    }
+}
 
 /* EXTRA ESERCIZIO 9
 
@@ -234,8 +266,39 @@ Usa uno più for loop per raggiungere il risultato
 
 Una volta fatto, crea un console.log() per controllare la proprietà length di "characters" prima e dopo l'operazione
 */
+console.log("EXTRA 9th ex");
+// console.log(characters);
+console.log(characters);
+for (i = 0; i < 10; i++) {
+    if (characters[i] == femaleCharachters[0].name || characters[i] == femaleCharachters[1].name) {
+        characters.splice(i, 1);
+    }
+}
+console.log(characters);
+console.log("lunghezza dell'array adesso: ",characters.length);
 
-/* EXTRA ESERCIZIO 10
 
-Crea una funzionalità che prenda un elemento casuale dall'array "starWarsCharacters" e ne stampi in console le proprietà in modo discorsivo
-*/
+// console.log(characters);
+
+// EXTRA ESERCIZIO 10
+
+// Crea una funzionalità che prenda un elemento casuale dall'array "starWarsCharacters" e ne stampi in console le proprietà in modo discorsivo
+// let randomcoso;
+// let randomProperty = function (starWarsCharacters) {
+//   let keys = Object.keys(starWarsCharacters);
+//   console.log(keys[ keys.length * Math.random()]);
+// }
+// randomProperty()
+// console.log(randomcoso);
+console.log("EXTRA 10th ex")
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+let index = getRandomInt(starWarsCharacters.length)
+// let index = starWarsCharacters.lenght * Math.random();
+console.log("numero generato: ",index)
+let arrayContent = Object.entries(starWarsCharacters);
+// console.log(arrayContent)
+
+console.log(starWarsCharacters[index])
